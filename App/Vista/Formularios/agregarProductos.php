@@ -48,7 +48,11 @@
                                     </div>
                                     <div class="col-sm-6 mt-2">
                                         <input type="number" class="form-control form-control-user" 
-                                            placeholder="Precio del producto">
+                                            placeholder="Precio de compra del producto">
+                                    </div>
+                                    <div class="col-sm-6 mt-2">
+                                        <input type="number" class="form-control form-control-user"
+                                            placeholder="Precio de venta del producto">
                                     </div>
 
                                     <div class="col-sm-6 mt-2">
@@ -59,7 +63,7 @@
                                     </div>
                                     
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                <a href="#" class="btn btn-primary btn-user btn-block">
                                     Agregar Producto
                                 </a>
                                 <hr>

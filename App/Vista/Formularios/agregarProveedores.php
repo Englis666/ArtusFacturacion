@@ -23,8 +23,7 @@
 </head>
 
 <body class="bg-gradient-primary">
-
-    <div class="container ">
+    <div class="container">
         <div class="card o-hidden border-0 shadow-lg mt-5">
             <div class="card-body p-2  justify-content-center">
                
