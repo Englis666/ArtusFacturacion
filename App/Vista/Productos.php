@@ -164,7 +164,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nombre completo del administrador</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nombre del usuario</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -175,7 +175,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                          p      <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Registro de Actividad
                                 </a>
@@ -204,7 +204,7 @@
                     <!-- Content Row -->
                     <div class="row">
 
-                        <!-- Ganancias Mensuales carta-->
+                        <!-- Ganancias Mensuales carta
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
@@ -223,7 +223,7 @@
                             </div>
                         </div>
 
-                        <!-- Ganancias Anuales carta -->
+                        Ganancias Anuales carta
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
@@ -241,8 +241,8 @@
                             </div>
                         </div>
 
-                        <!-- Porcentaje de productos validos en la tienda-->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        Porcentaje de productos validos en la tienda-->
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -269,49 +269,46 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Content Row -->
                     <div class="row">
-
-                        <!-- Area Chart -->
                         <div class="col-xl-6 col-lg-6">
                             <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex align-items-center justify-content-center">
-                                    <h6 class="m-0 font-weight-bold text-primary ">Resumen de ganancias de hoy</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
+                                <div class="card-header py-3 d-flex align-item-center justify-content-center">
+                                    <h6 class="mb-0 font-weight-bold text-primary">Productos por categoria</h6>
                                 </div>
-                                <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
+                                    <table class="table tabler-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <th>Codigo de barras</th>
+                                            <th>Nombre del producto</th>
+                                            <th>Categoria</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex align-item-center justify-content-center">
-                                    <h6 class="mb-0 font-weight-bold text-primary">Historial de clientes</h6>
+                                    <h6 class="mb-0 font-weight-bold text-primary">Historial de productos vendidos</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table tabler-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
-                                            <th>Numero de documento del cliente</th>
+                                            <th></th>
                                             <th>Nombre del producto</th>
                                             <th>Total de compra</th>
                                             <th>Fecha y dia</th>
@@ -326,11 +323,13 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                    
                             </div>
                         </div>
-                    </div>
 
+
+                        
+                    </div>
+                    
                     <!-- Content Row -->
                     <div class="row">
                         <!-- Content Column -->
