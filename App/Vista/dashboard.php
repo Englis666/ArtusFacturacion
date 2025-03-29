@@ -92,22 +92,7 @@
                 </div>
             </li>
 
-            <!-- Formularios -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Formularios</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="Formularios/agregarProveedores.php">Agregar Proveedores</a>
-                        <a class="collapse-item" href="Formularios/agregarCategoriaDeProductos.php">Agregar Categoria de Productos</a>
-                        <a class="collapse-item" href="Formularios/agregarProductos.php">Agregar Productos</a>
-                    </div>
-                </div>
-            </li>
+           
 
             <!-- Divider -->
             <hr class="sidebar-divider">
