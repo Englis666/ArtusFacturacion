@@ -12,7 +12,7 @@ class ReporteController {
 
     //Investigar correctamente 
     public function generarReporteInventario(){
-        $productos = $this->producto->obtenerProductos();
+        $productos = $this->producto->obtenerTodosLosProductos();
         $fecha = date('d/m/Y');
 
         $pdf = new FPDF();
