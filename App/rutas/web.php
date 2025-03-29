@@ -4,6 +4,7 @@ require_once '../App/Controlador/AuthController.php';
 $auth = new AuthController();
 $producto = new ProductoController();
 $venta = new VentaController();
+$reporte = new ReporteController();
 
 
 $route = $get['route'] ?? 'login';
@@ -27,6 +28,9 @@ switch ($route){
         break;
     case 'ventas':
         $venta->index();
+        break;
+    case 'reporte':
+        $reporte->generarReporteInventario();
         break;
     default: 
         echo "Pagina no encontrada.";
