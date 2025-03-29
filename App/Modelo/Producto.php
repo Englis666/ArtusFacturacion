@@ -5,9 +5,9 @@ class Producto {
     public function __construct($conn){
         $this->conn = $conn;
     }
-    public function obtenerTodasLosProductos(){
+    public function obtenerTodosLosProductos(){ 
         $resultado = $this->conn->query("SELECT * FROM productos");
-        return $resultado->fetch_all(FETCH_ASSOC);
+        return $resultado->fetch_all(PDO::FETCH_ASSOC); 
     }
     public function agregarProducto($nombre , $descripcion , $precio , $stock){
         $stmt = $this->conn->prepare("INSERT INTO productos (nombre,descripcion,precio,stock) VALUES ( ? , ? , ? , ?) ");
@@ -21,6 +21,7 @@ class Producto {
 
     public function desactivarProducto($idProducto){
         $stmt = $this->conn->prepare("UPDATE productos WHERE idProducto = ?");
+        return $stmt->execute([$idProducto]); 
     }
 }
 
