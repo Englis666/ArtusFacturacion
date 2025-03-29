@@ -1,4 +1,9 @@
 <?php session_start(); ?>
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,18 +15,18 @@
 </head>
 <body>
 
-    <h1>Bievenido a tu Sistema De Facturacion</h1>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-mb-4">
+                <h1 class="text center">Bievenido al sistema Artus Facturacion</h1>
                 <h2 class="text-center">Iniciar sesion</h2>
                 <?php if (isset($_SESSION['error'])): ?>
                     <div class="alert alert-danger"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
                 <?php endif; ?>
-                <form method="POST" action="login.php">
+                <form method="POST" action="login.php" class="form">
                     <div class="mb-3">
                         <label class="form-label">Numero de documento</label>
-                        <input type="text" name="num_doc" clas="form-control" required>
+                        <input type="number" name="num_doc" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nombre Completo</label>
@@ -29,12 +34,12 @@
                      </div>
 
                     <div class="mb-3">
-                         <label class="form-label">>Contraseña</label>
+                         <label class="form-label">Contraseña</label>
                          <input type="text" name="password" class="form-control" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">Iniciar Sesion</button>
-                    <a href="registro.php" class="d-block text-center mt-2">Registrarse</a>
+                    <a href="registro.php" class="d-block text-center mt-2 btn btn-secondary">Registrarse</a>
 
                 </form>
 
