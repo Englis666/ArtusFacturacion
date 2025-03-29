@@ -20,7 +20,7 @@ class Usuario {
         $stmt->binParam("is", $num_doc, $usuario);
         $stmt->execute();
         $resultado = $stmt->get_result();
-        $usuario = $result->fetch_assoc();
+        $usuario = $resultado->fetch_assoc(); 
 
         if($usuario && password_verify($password, $usuario['password'])){
             return $usuario;
