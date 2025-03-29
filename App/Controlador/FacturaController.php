@@ -17,7 +17,7 @@ class FacturaController {
     }
 
     public function imprimirFactura($idVenta) {
-        $venta = $this->facturaModelo->obtenerTodasLasVentas($idVenta);
+        $venta = $this->facturaModelo->obtenerVenta($idVenta);
         if (!$venta) {
             die("Venta no encontrada.");
         }
