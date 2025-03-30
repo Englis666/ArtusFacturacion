@@ -19,7 +19,8 @@
 
     <!-- Custom styles for this template-->
     <link href="public/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 
 <body id="page-top">
@@ -58,40 +59,38 @@
 
             <!-- Inventario -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Inventario</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Gestion de Productos y Proovedores:</h6>
-                        <a class="collapse-item" href="buttons.html">Proveedores</a>
-                        <a class="collapse-item" href="cards.html">Productos</a>
-                          <a class="collapse-item" href="">Productos Stock</a>
-
-                    </div>
-                </div>
-            </li>
+    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Inventario"
+        aria-expanded="false" aria-controls="Inventario">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Inventario</span>
+    </a>
+    <div id="Inventario" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
+        <div class=" py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Productos y Proveedores:</h6>
+            <a class="collapse-item text-white" href="Proveedores.php">Proveedores</a>
+            <a class="collapse-item text-white" href="Productos.php">Productos</a>
+            <a class="collapse-item text-white" href="#">Productos Stock</a>
+        </div>
+    </div>
+</li>
+            
 
             <!-- Tienda -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Tienda</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Gestion de inversiones y ganancias de la tienda</h6>
-                        <a class="collapse-item" href="utilities-border.html">Inversiones de productos</a>
-                        <a class="collapse-item" href="utilities-animation.html">Ganancias de productos</a>
-                        <a href="collapse-item" href="#">Cierre de mes</a>
-                    </div>
-                </div>
-            </li>
 
+            <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Tienda"
+        aria-expanded="false" aria-controls="Tienda">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Tienda</span>
+    </a>
+    <div id="Tienda" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
+        <div class=" py-2 collapse-inner rounded">
+            <a class="collapse-item text-white" href="utilities-border.html">Inversiones de productos</a>
+            <a class="collapse-item text-white" href="utilities-animation.html">Ganancias de productos</a>
+            <a class="collapse-item text-white" href="#">Cierre de mes</a>
+        </div>
+    </div>
+</li>
            
 
             <!-- Divider -->
