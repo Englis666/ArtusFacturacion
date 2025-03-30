@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Inversion De Productos En La Tienda</title>
+    <title>Proveedores Del Negocio</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -68,7 +68,7 @@
                         <h6 class="collapse-header">Gestion de Productos y Proovedores:</h6>
                         <a class="collapse-item" href="buttons.html">Proveedores</a>
                         <a class="collapse-item" href="cards.html">Productos</a>
-                        <a class="collapse-item" href="">Productos Stock</a>
+                          <a class="collapse-item" href="">Productos Stock</a>
 
                     </div>
                 </div>
@@ -196,7 +196,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Ganancia Por Productos</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Proveedores Del Negocio</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generar Reporte
                         </a>
@@ -204,58 +204,19 @@
 
                     <!-- Content Row -->
                     <div class="row">
-                        <!-- Gastos Mensuales carta  -->
-                        <div class="col-xl-6 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Ganancia Mensuales En Productos
-                                            </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Gastos Anuales carta  -->
-                        <div class="col-xl-6 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Ganancia Anuales En Productos</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-
-                    <!-- Content Row -->
-                    <div class="row">
                         <div class="col-xl-6 col-lg-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex align-item-center justify-content-center">
-                                    <h6 class="mb-0 font-weight-bold text-primary">Ganancia por producto</h6>
+                                    <h6 class="mb-0 font-weight-bold text-primary">Proveedores del Negocio</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table tabler-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
-                                            <th>Codigo de barras</th>
-                                            <th>Nombre del producto</th>
-                                            <th>Precio de venta por producto</th>
-                                            <th>Fecha y hora</th>
+                                            <th>NIT</th>
+                                            <th>Nombre del proveedor</th>
+                                            <th>Telefono</th>
+                                            <th>Email</th>
+                                            <th>Direccion</th>
                                         </thead>
                                         <tbody>
                                             <tr>
@@ -274,16 +235,20 @@
                         <div class="col-xl-6 col-lg-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex align-item-center justify-content-center">
-                                    <h6 class="mb-0 font-weight-bold text-primary">Ganancia por Categoria De Producto</h6>
+                                    <h6 class="mb-0 font-weight-bold text-primary">Historial de Compra de Proveedores</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table tabler-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
-                                            <th>Nombre de la Categoria</th>
-                                            <th>Precio acumulado por ventas</th>
+                                            <th>NIT Del proveedor</th>
+                                            <th>Nombre del proovedor</th>
+                                            <th>Categoria de productos</th>
+                                            <th>Fecha y Hora</th>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td></td>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                             </tr>
