@@ -16,10 +16,13 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 
     <!-- Custom styles for this template-->
-    <link href="public/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 
 <body id="page-top">
@@ -31,11 +34,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard">
+                <div class="sidebar-brand-icon">
+                     <i class="fas fa-globe"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Nombre de negocio</div>
+                <div class="sidebar-brand-text mx-3">Mundo Accesorio</div>
             </a>
 
             <!-- Divider -->
@@ -43,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="dashboard.php">
+                <a class="nav-link" href="dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Inicio</span></a>
             </li>
@@ -58,56 +61,37 @@
 
             <!-- Inventario -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Inventario"
+                    aria-expanded="false" aria-controls="Inventario">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Inventario</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Gestion de Productos y Proovedores:</h6>
-                        <a class="collapse-item" href="buttons.html">Proveedores</a>
-                        <a class="collapse-item" href="cards.html">Productos</a>
-                          <a class="collapse-item" href="">Productos Stock</a>
-
+                <div id="Inventario" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
+                    <div class=" py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Productos y Proveedores:</h6>
+                        <a class="collapse-item text-white" href="Proveedores">Proveedores</a>
+                        <a class="collapse-item text-white" href="ProductosStock">Productos Stock</a>
                     </div>
                 </div>
             </li>
+                            
 
             <!-- Tienda -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Tienda"
+                    aria-expanded="false" aria-controls="Tienda">
+                    <i class="fas fa-fw fa-cog"></i>
                     <span>Tienda</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Gestion de inversiones y ganancias de la tienda</h6>
-                        <a class="collapse-item" href="utilities-border.html">Inversiones de productos</a>
-                        <a class="collapse-item" href="utilities-animation.html">Ganancias de productos</a>
-                        <a href="collapse-item" href="#">Cierre de mes</a>
+                <div id="Tienda" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
+                    <div class=" py-2 collapse-inner rounded">
+                        <a class="collapse-item text-white" href="inversionDeProductos">Inversiones de productos</a>
+                        <a class="collapse-item text-white" href="gananciaDeProductos">Ganancias de productos</a>
+                        <a class="collapse-item text-white" href="#">Cierre de mes</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Formularios -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Formularios</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="Formularios/agregarProveedores.php">Agregar Proveedores</a>
-                        <a class="collapse-item" href="Formularios/agregarCategoriaDeProductos.php">Agregar Categoria de Productos</a>
-                        <a class="collapse-item" href="Formularios/agregarProductos.php">Agregar Productos</a>
-                    </div>
-                </div>
-            </li>
 
 
             <!-- Divider -->
@@ -195,19 +179,27 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Proveedores Del Negocio</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generar Reporte
-                        </a>
+                   <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Gestión de productos</h1>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                <i class="fas fa-download fa-sm text-white-50"></i> Generar Reporte
+                            </a>
+                            <button class="btn btn-primary btn-sm shadow-sm" data-bs-toggle="modal" data-bs-target="#modalIframe">
+                                <i class="fas fa-plus fa-sm text-white-50"></i> Agregar Proveedor
+                            </button>
+                        </div>
                     </div>
+
+                    <?php include 'Modals/agregarProveedoresModal.php'; ?>
+
 
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-xl-6 col-lg-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex align-item-center justify-content-center">
-                                    <h6 class="mb-0 font-weight-bold text-primary">Proveedores del Negocio</h6>
+                                    <h6 class="mb-0  text-primary">Proveedores del Negocio</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table tabler-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -235,7 +227,7 @@
                         <div class="col-xl-6 col-lg-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex align-item-center justify-content-center">
-                                    <h6 class="mb-0 font-weight-bold text-primary">Historial de Compra de Proveedores</h6>
+                                    <h6 class="mb-0  text-primary">Historial de Compra de Proveedores</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table tabler-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -305,9 +297,8 @@
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom scripts for all pages-->
     <script src="public/js/sb-admin-2.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

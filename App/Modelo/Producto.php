@@ -1,5 +1,5 @@
 <?php
-class Producto {
+class Producto{
     private $conn;
 
     public function __construct($conn){

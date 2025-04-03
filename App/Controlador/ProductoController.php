@@ -18,10 +18,14 @@ class ProductoController{
         if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             $nombre = $_POST['nombre'];
             $descripcion = $_POST['descripcion'];
-            $precio = $_POST['precio'];
+            $precioCompra = $_POST['precioCompra'];
+            $precioVenta = $_POST['precioVenta'];
+            $idCategoria = $_POST['idCategoria'];
+            $idProveedor = $_POST['idProveedor'];
             $stock = $_POST['stock'];
+            $fechaCreacion = current();
 
-            if ($this->productoModelo->agregarProducto($nombre, $descripcion, $precio, $stock)){
+            if ($this->productoModelo->agregarProducto($nombre, $descripcion, $precioCompra, $precioVenta, $stock , $fechaCreacion)){
                 header('Location: productos.php?success=1');
             } else {
                 header('Location: productos.php?error=1');
@@ -30,7 +34,7 @@ class ProductoController{
     }
 
     public function desactivarProducto(){
-        if (isset($GEt['idProducto'])){
+        if (isset($_GET['idProducto'])){
             $idProducto = $_GET['idProducto'];
             $this->productoModelo->desactivarProducto($idProducto);
             header('Location: productos.php');
