@@ -1,9 +1,9 @@
 <?php
 
 
-require_once __DIR__ . '/../Modelo/Usuario.php';
-require_once __DIR__ .'../App/Config/Database.php';
-require_once __DIR__.'../App/Helper/Sesion.php';
+require_once '../App/Modelo/Usuario.php';
+require_once '../App/Config/Database.php';
+require_once '../App/Helper/Sesion.php';
 
 class AuthController {
     private $usuarioModelo;
@@ -33,9 +33,9 @@ class AuthController {
                 $_SESSION['usuario']['rol'] = $rol;
 
                 if ($rol === '1') {
-                    header('Location: dashboard');
+                    header('Location: dashboard.php');
                 } else {
-                    header('Location: formularioVenta');
+                    header('Location: formularioVenta.php');
                 }
                 exit;
             } else {

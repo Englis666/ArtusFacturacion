@@ -1,8 +1,8 @@
 <?php
-require __DIR__ .'../modelo/Factura.php';
-require __DIR__ .'../modelo/Venta.php';
-require __DIR__ .'../Config/Database.php';
-require __DIR__ .'../lib/vendor/autoload.php';
+require '../modelo/Factura.php';
+require '../modelo/Venta.php';
+require '../Config/Database.php';
+require '../lib/vendor/autoload.php';
 
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
