@@ -1,11 +1,12 @@
 <?php
-require_once '../App/Config/Database.php';
-require_once '../App/Modelo/Producto.php';
+require_once __DIR__.'../App/Config/Database.php';
+require_once __DIR__.'../App/Modelo/Producto.php';
 
 class ReporteController {
     private $producto;
 
-    public function __construct($conn){
+    public function __construct(){
+        global $conn;
         $this->producto = new Producto($conn);
     }
 

@@ -1,6 +1,6 @@
 <?php
-require_once '../App/Modelo/Categoria.php';
-require_once '../App/Config/Database.php';
+require_once __DIR__ .'../App/Modelo/Categoria.php';
+require_once __DIR__ .'../App/Config/Database.php';
 
 class CategoriaController{
     private $categoriaModelo;
