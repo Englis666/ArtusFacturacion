@@ -33,9 +33,9 @@ class AuthController {
                 $_SESSION['usuario']['rol'] = $rol;
 
                 if ($rol === '1') {
-                    header('Location: dashboard.php');
+                    header('Location: dashboard');
                 } else {
-                    header('Location: formularioVenta.php');
+                    header('Location: formularioVenta');
                 }
                 exit;
             } else {

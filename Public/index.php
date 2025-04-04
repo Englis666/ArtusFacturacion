@@ -2,22 +2,23 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Obtener la raíz del proyecto dinámicamente
-$root = dirname(__DIR__);
+require_once '../App/Controlador/VistaController.php';
+require_once '../App/Controlador/AuthController.php';
+require_once '../App/Controlador/ProductoController.php';
+require_once '../App/Controlador/ProveedoresController.php';
+require_once '../App/Controlador/CategoriaController.php';
+require_once '../App/Controlador/VentaController.php';
+require_once '../App/Controlador/ReporteController.php';
 
-// Cargar controladores con rutas absolutas
-require_once "$root/App/Controlador/VistaController.php";
-require_once "$root/App/Controlador/AuthController.php";
-require_once "$root/App/Controlador/ProductoController.php";
-require_once "$root/App/Controlador/ProveedoresController.php";
-require_once "$root/App/Controlador/CategoriaController.php";
-require_once "$root/App/Controlador/VentaController.php";
-require_once "$root/App/Controlador/ReporteController.php";
-
-// Obtener la ruta de la solicitud
+// Obtener la ruta
 $route = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
-// Definir controladores
+// Si no hay ruta (accede a "/"), redirigir a "/login"
+if ($route === '') {
+    header("Location: /login");
+    exit;
+}
+
 $controllers = [
     'vista' => new VistaController(),
     'auth' => new AuthController(),
@@ -25,7 +26,7 @@ $controllers = [
     'proveedor' => new ProveedoresController(),
     'categoria' => new CategoriaController(),
     'venta' => new VentaController(),
-    'reporte' => new ReporteController(),
+    'reporte' => new ReporteController($conn),
 ];
 
 // Rutas de frontend
@@ -37,7 +38,7 @@ $frontend = [
     'Proveedores' => ['vista', 'mostrar'],
     'gananciaDeProductos' => ['vista', 'mostrar'],
     'inversionDeProductos' => ['vista', 'mostrar'],
-    'formularioVenta' => ['vista', 'mostrar'],
+    'formularioVenta' => ['vista' , 'mostrar'],
 ];
 
 // Rutas de backend
@@ -48,7 +49,7 @@ $backend = [
     'agregarCategoria' => ['categoria', 'agregarCategoria'],
     'agregarProveedor' => ['proveedor', 'agregarProveedor'],
     'reporte' => ['reporte', 'generarReporteInventario'],
-    'agregarVenta' => ['venta', 'agregarVenta'],
+    'agregarVenta' => ['venta' , 'agregarVenta'],
 ];
 
 // Verificar si la ruta está en frontend
