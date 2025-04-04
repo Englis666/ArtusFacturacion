@@ -6,7 +6,8 @@ require_once '../App/Helper/Sesion.php';
 $categoriaController = new CategoriaController();
 $categorias = $categoriaController->obtenerTodasLasCategoriasDeProductos();
 
-Sesion::iniciar();
+Sesion::obtenerUsuario();
+$validar = $_SESSION['usuario'] ?? null;
 
 ?>
 
@@ -76,11 +77,12 @@ Sesion::iniciar();
                                 
                                 <div class="mb-3">
                                     <label class="form-label">Cajer@</label>
-                                   <?php if (!empty($validar) && isset($validar[0])): ?>
+                                    <?php if (!empty($validar) && isset($validar[0])): ?>
                                         <input type="text" class="form-control"  placeholder="<?= htmlspecialchars($validar[0]['nombreCompleto'] ?? 'Desconocido') ?>" readonly disabled>
                                     <?php else: ?>
                                         <input type="text" class="form-control" value="Usuario no autenticado" readonly disabled>
                                     <?php endif; ?>
+     
                                 </div>
 
 

@@ -10,7 +10,14 @@ require_once '../App/Controlador/CategoriaController.php';
 require_once '../App/Controlador/VentaController.php';
 require_once '../App/Controlador/ReporteController.php';
 
+// Obtener la ruta
 $route = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+
+// Si no hay ruta (accede a "/"), redirigir a "/login"
+if ($route === '') {
+    header("Location: /login");
+    exit;
+}
 
 $controllers = [
     'vista' => new VistaController(),
