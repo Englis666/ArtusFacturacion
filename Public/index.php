@@ -10,15 +10,16 @@ require_once '../App/Controlador/CategoriaController.php';
 require_once '../App/Controlador/VentaController.php';
 require_once '../App/Controlador/ReporteController.php';
 
-// Obtener la ruta
+// Capturar la ruta sin ".php"
 $route = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
-// Si no hay ruta (accede a "/"), redirigir a "/login"
-if ($route === '') {
-    header("Location: /login");
+if (substr($route, -4) === '.php') {
+    $newRoute = substr($route, 0, -4);
+    header("Location: /$newRoute", true, 301);
     exit;
 }
 
+// Definir controladores
 $controllers = [
     'vista' => new VistaController(),
     'auth' => new AuthController(),
