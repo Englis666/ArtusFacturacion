@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once '../App/Controlador/VistaController.php';
 require_once '../App/Controlador/AuthController.php';
 require_once '../App/Controlador/ProductoController.php';
@@ -22,19 +25,24 @@ $controllers = [
 // Rutas de frontend
 $frontend = [
     'login' => ['vista', 'mostrar'],
+    'registro' => ['vista', 'mostrar'],
     'dashboard' => ['vista', 'mostrar'],
     'ProductosStock' => ['vista', 'mostrar'],
     'Proveedores' => ['vista', 'mostrar'],
     'gananciaDeProductos' => ['vista', 'mostrar'],
     'inversionDeProductos' => ['vista', 'mostrar'],
+    'formularioVenta' => ['vista' , 'mostrar'],
 ];
 
 // Rutas de backend
 $backend = [
+    'registrar' => ['auth', 'registrar'],
+    'logearse' => ['auth', 'logearse'],
     'agregarProducto' => ['producto', 'agregarProducto'],
     'agregarCategoria' => ['categoria', 'agregarCategoria'],
     'agregarProveedor' => ['proveedor', 'agregarProveedor'],
     'reporte' => ['reporte', 'generarReporteInventario'],
+    'agregarVenta' => ['venta' , 'agregarVenta'],
 ];
 
 // Verificar si la ruta está en frontend

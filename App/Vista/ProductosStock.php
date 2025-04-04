@@ -1,3 +1,18 @@
+<?php
+require_once '../App/Controlador/CategoriaController.php';
+require_once '../App/Controlador/ProductoController.php';
+
+$categoriaController = new CategoriaController();
+$categorias = $categoriaController->obtenerTodasLasCategoriasDeProductos();
+$categoriaPorProducto = $categoriaController->obtenerProductosPorCategoria();
+
+$productoController = new ProductoController();
+$productos = $productoController->obtenerProductos();
+$stock = $productoController->calcularProductosActualesDelNegocio();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -192,35 +207,15 @@
 
                     <!-- Content Row -->
                     <div class="row">
-
-                        <!-- Ganancias Mensuales carta-->
-                        <div class="col-xl-6 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row  align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs text-primary text-uppercase mb-1">
-                                                Cantidad de productos stock por ${categoria}
-                                            </div>
-                                            <div class="h5 mb-0 text-gray-800">40</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Ganancias Anuales carta -->
-                        <div class="col-xl-6 col-md-6 mb-4">
+                        <div class="col-xl-12 col-md-12 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row  align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs  text-success text-uppercase mb-1">
                                                 Cantidad de productos actuales del negocio</div>
-                                            <div class="h5 mb-0 text-gray-800">1255</div>
+                                                <div class="h5 mb-0 text-gray-800">Los productos actuales del negocio son : <?php echo htmlspecialchars($stock); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -246,16 +241,18 @@
                                             <th>Cantidad</th>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                            <?php foreach ($productos as $producto): ?>
+                                                <tr>
+                                                        <td class="text-center"><?php echo htmlspecialchars($producto['codigoBarras']); ?></td>
+                                                        <td class="text-center"><?php echo htmlspecialchars($producto['nombre']);?></td>
+                                                        <td class="text-center"><?php echo htmlspecialchars($producto['cantidad']);?></td>
+                                                    </tr>
+                                            <?php endforeach;?>
                                         </tbody>
                                     </table>
                                 </div>
                                     
-                            </div>
+                            </div><
                         </div>
                          <div class="col-xl-6 col-lg-6">
                             <div class="card shadow mb-4">
@@ -269,18 +266,23 @@
                                             <th>Nombre del Producto</th>
                                             <th>Categoria de Productos</th>
                                             <th>Cantidad</th>
-                                            <th>Precio</th>
+                                            <th>Precio de venta</th>
+                                            <th>Precio de compra</th>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                            <?php foreach ($categoriaPorProducto as $categoriaPorProducto): ?>
+                                                <tr>
+                                                    <td class="text-center"><?php echo htmlspecialchars($categoriaPorProducto['codigoBarras'])?></td>
+                                                    <td class="text-center"><?php echo htmlspecialchars($categoriaPorProducto['nombre'])?></td>
+                                                    <td class="text-center"><?php echo htmlspecialchars($categoriaPorProducto['nombreCategoria'])?></td>
+                                                    <td class="text-center"><?php echo htmlspecialchars($categoriaPorProducto['cantidad'])?></td>
+                                                    <td class="text-center"><?php echo htmlspecialchars($categoriaPorProducto['precioVenta'])?></td>
+                                                    <td class="text-center"><?php echo htmlspecialchars($categoriaPorProducto['precioCompra'])?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
-                                    
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6">
@@ -297,11 +299,7 @@
                                             <th>Cantidad</th>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                           
                                         </tbody>
                                     </table>
                                 </div>
@@ -323,9 +321,11 @@
                                             <th class="text-center">Categoria De Productos</th>
                                         </thead>
                                         <tbody>
+                                             <?php foreach ($categorias as $categoria): ?>
                                             <tr>
-                                                <td class="text-center"></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($categoria['nombreCategoria']); ?></td>
                                             </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>    
@@ -375,76 +375,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Color System -->
-                          <p>Leyenda para la grafica</p>
-                            <div class="row">
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-primary text-white shadow">
-                                        <div class="card-body">
-                                            Primary
-                                            <div class="text-white-50 small">#4e73df</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-success text-white shadow">
-                                        <div class="card-body">
-                                            Success
-                                            <div class="text-white-50 small">#1cc88a</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-info text-white shadow">
-                                        <div class="card-body">
-                                            Info
-                                            <div class="text-white-50 small">#36b9cc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-warning text-white shadow">
-                                        <div class="card-body">
-                                            Warning
-                                            <div class="text-white-50 small">#f6c23e</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-danger text-white shadow">
-                                        <div class="card-body">
-                                            Danger
-                                            <div class="text-white-50 small">#e74a3b</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-secondary text-white shadow">
-                                        <div class="card-body">
-                                            Secondary
-                                            <div class="text-white-50 small">#858796</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-light text-black shadow">
-                                        <div class="card-body">
-                                            Light
-                                            <div class="text-black-50 small">#f8f9fc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-dark text-white shadow">
-                                        <div class="card-body">
-                                            Dark
-                                            <div class="text-white-50 small">#5a5c69</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -456,7 +386,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy;Artus Sistema De Inventarios Y Facturacion</span>
                     </div>
                 </div>
             </footer>
@@ -472,26 +402,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

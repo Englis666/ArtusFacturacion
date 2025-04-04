@@ -16,16 +16,16 @@ class ProductoController{
 
     public function agregarProducto(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-            $nombre = $_POST['nombre'];
-            $descripcion = $_POST['descripcion'];
+            $codigoBarras = $_POST['codigoBarras'];
+            $nombreProducto = $_POST['nombreProducto'];
             $precioCompra = $_POST['precioCompra'];
             $precioVenta = $_POST['precioVenta'];
             $idCategoria = $_POST['idCategoria'];
             $idProveedor = $_POST['idProveedor'];
-            $stock = $_POST['stock'];
-            $fechaCreacion = current();
+            $cantidad = $_POST['cantidad'];
 
-            if ($this->productoModelo->agregarProducto($nombre, $descripcion, $precioCompra, $precioVenta, $stock , $fechaCreacion)){
+
+            if ($this->productoModelo->agregarProducto($codigoBarras, $nombreProducto, $precioCompra, $precioVenta, $idCategoria,$idProveedor,$cantidad)){
                 header('Location: productos.php?success=1');
             } else {
                 header('Location: productos.php?error=1');
@@ -34,12 +34,17 @@ class ProductoController{
     }
 
     public function desactivarProducto(){
-        if (isset($_GET['idProducto'])){
-            $idProducto = $_GET['idProducto'];
-            $this->productoModelo->desactivarProducto($idProducto);
+        if (isset($_GET['codigoBarras'])){
+            $codigoBarras = $_GET['codigoBarras'];
+            $this->productoModelo->desactivarProducto($codigoBarras);
             header('Location: productos.php');
         }
     }
+
+    public function calcularProductosActualesDelNegocio(){
+        return $this->productoModelo->calcularProductosActualesDelNegocio();
+    }
+
 }
 
 ?>

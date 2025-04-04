@@ -1,59 +1,83 @@
 <?php
+
+
 require_once '../App/Modelo/Usuario.php';
 require_once '../App/Config/Database.php';
+require_once '../App/Helper/Sesion.php';
 
-class AuthController{
+class AuthController {
     private $usuarioModelo;
 
-    public function __construct(){
+    public function __construct() {
         global $conn;
         $this->usuarioModelo = new Usuario($conn);
     }
 
-    public function login(){
-        session_start();
-
-        if ($_SERVER['METHOD_REQUEST'] === "POST"){
+    public function logearse() {
+        Sesion::iniciar();
+        
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $num_doc = $_POST['num_doc'];
-            $usuario = $_POST['usuario'];
             $password = $_POST['password'];
 
-            $usuario = $this->usuarioModelo->login($num_doc, $usuario, $password);
+            $usuario = $this->usuarioModelo->logearse($num_doc, $password);
 
-            if ($usuario){
-                $_SESSION['usuario'] = $usuario;
-                header('Location');
+            if ($usuario) {
+                Sesion::establecerUsuario([
+                'num_doc' => $usuario['num_doc'],
+                'nombre' => $usuario['nombreCompleto'],
+                'email' => $usuario['email'],
+                'rol' => $usuario['rol']
+            ]);
+                $rol = ($usuario['rol'] === 1) ? '1' : '2'; // 1 admin //2 cajero
+                $_SESSION['usuario']['rol'] = $rol;
+
+                if ($rol === '1') {
+                    header('Location: dashboard');
+                } else {
+                    header('Location: formularioVenta');
+                }
                 exit;
             } else {
                 $_SESSION['error'] = "Usuario o contraseña incorrectos";
-            }
-        }
-        require 'App/Vista/login.php';
-    }
-
-    public function registrar(){
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-            $num_doc = $_POST['num_doc'];
-            $usuario = $_POST['usuario'];
-            $password = $_POST['password'];
-
-            if($this->usuarioModelo->registrar($num_doc, $usuario, $password)){
-                header('Location: login.php');
+                header('Location: login');
                 exit;
-            } else {
-                $_SESSION['error'] = 'Error al registrar usuario';
             }
+
         }
-        require 'App/Vista/registro.php';
     }
 
-    public function logout(){
-        session_start();
-        session_destroy();
-        header('Location: login.php');
-        exit;
+    public function registrar() {
+        
+    Sesion::iniciar();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $num_doc = $_POST['num_doc'];
+        $nombreCompleto = $_POST['nombreCompleto'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        
+        if ($this->usuarioModelo->registrar($num_doc, $nombreCompleto, $email, $password)) {
+            header('Location: login');
+            exit;
+        } else {
+            $_SESSION['error'] = 'Error al registrar usuario.';
+            header('Location: registro.php');
+            exit;
+        }
+    }
+}
+
+
+    public function validarSesion() {
+        Sesion::verificarSesion();
+    }
+    public function obtenerUsuario(){
+        return Sesion::obtenerUsuario();
     }
 
-
-
+    public function logout() {
+        Sesion::cerrarSesion();
+    }
 }

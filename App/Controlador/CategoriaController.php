@@ -13,6 +13,11 @@ class CategoriaController{
     public function obtenerTodasLasCategoriasDeProductos(){
         return $this->categoriaModelo->obtenerTodasLasCategoriasDeProductos();
     }
+
+    public function obtenerProductosPorCategoria(){
+        return $this->categoriaModelo->obtenerProductosPorCategoria();
+    }
+
     public function agregarCategoria(){
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $nombreCategoria = $_POST['nombreCategoria'];

@@ -7,22 +7,29 @@ class Producto{
     }
     public function obtenerTodosLosProductos(){ 
         $resultado = $this->conn->query("SELECT * FROM productos");
-        return $resultado->fetch_all(PDO::FETCH_ASSOC); 
+        return $resultado->fetchAll(PDO::FETCH_ASSOC); 
     }
-    public function agregarProducto($nombre , $descripcion , $precio , $stock){
-        $stmt = $this->conn->prepare("INSERT INTO productos (nombre,descripcion,precio,stock) VALUES ( ? , ? , ? , ?) ");
-        return $stmt->execute([$nombre , $descripcion , $precio , $stock]);
-    }
-
-    public function actualizarStock($idProducto , $cantidad){
-        $stmt = $this->conn->prepare("UPDATE productos SET stock = stock + ? WHERE = idProducto = ?");
-        return $stmt->excute([$cantidad , $idProducto]);
+    public function agregarProducto($codigoBarras, $nombreProducto ,$precioCompra,$precioVenta,$idCategoria,$idProveedor,$cantidad){
+        $fechaCreacion = (new DateTime('now', new DateTimeZone('America/Bogota')))->format('Y-m-d H:i:s');
+        $stmt = $this->conn->prepare("INSERT INTO productos (codigoBarras, nombre, precioCompra, precioVenta,categoria_idCategoria,proveedor_idProveedor,cantidad,fechaCreacion) VALUES ( ? , ? , ? ,? ,? , ? , ? , ?) ");
+        return $stmt->execute([$codigoBarras, $nombreProducto ,$precioCompra,$precioVenta,$idCategoria,$idProveedor,$cantidad,$fechaCreacion]);
     }
 
-    public function desactivarProducto($idProducto){
-        $stmt = $this->conn->prepare("UPDATE productos WHERE idProducto = ?");
-        return $stmt->execute([$idProducto]); 
+    public function actualizarStock($codigoBarras , $cantidad){
+        $stmt = $this->conn->prepare("UPDATE productos SET stock = stock + ? WHERE = codigoBarras = ?");
+        return $stmt->excute([$cantidad , $codigoBarras]);
     }
+
+    public function desactivarProducto($codigoBarras){
+        $stmt = $this->conn->prepare("UPDATE productos WHERE codigoBarras = ?");
+        return $stmt->execute([$codigoBarras]); 
+    }
+
+    public function calcularProductosActualesDelNegocio(){
+        $stmt = $this->conn->query("SELECT SUM(cantidad) AS Stock FROM productos");
+        return $stmt->fetchColumn();
+    }
+
 }
 
 ?>

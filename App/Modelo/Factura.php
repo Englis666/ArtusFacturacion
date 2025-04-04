@@ -20,7 +20,7 @@ class Factura {
     public function obtenerProductosVendidos($idVenta){
         $stmt = $this->conn->prepare("SELECT p.nombre, dv.cantidad, dv.precioUnitario
                                       FROM detalleVenta dv
-                                      JOIN productos p ON dv.producto_idProducto = p.idProducto
+                                      JOIN productos p ON dv.producto_codigoBarras = p.codigoBarras
                                       WHERE dv.venta_idVenta = ?");
         $stmt->bind_param("i", $idVenta);
         $stmt->execute();
@@ -32,7 +32,7 @@ class Factura {
         $stmt = $this->conn->prepare("SELECT v.idVenta, p.nombre AS producto, dv.cantidad, dv.precioUnitario, v.total, v.fecha 
                                       FROM ventas v
                                       JOIN detalleVenta dv ON v.idVenta = dv.venta_idVenta
-                                      JOIN productos p ON dv.producto_idProducto = p.idProducto
+                                      JOIN productos p ON dv.producto_codigoBarras = p.codigoBarras
                                       WHERE DATE(v.fecha) = CURDATE()");
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);

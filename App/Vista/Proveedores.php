@@ -1,3 +1,10 @@
+<?php
+$proveedoresController = new ProveedoresController();
+$proveedores = $proveedoresController->obtenerProveedores();
+$comprasConProveedores = $proveedoresController->obtenerComprasDeProductoPorProveedor();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -204,21 +211,20 @@
                                 <div class="card-body">
                                     <table class="table tabler-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
-                                            <th>NIT</th>
                                             <th>Nombre del proveedor</th>
                                             <th>Telefono</th>
                                             <th>Email</th>
                                             <th>Direccion</th>
                                         </thead>
                                         <tbody>
+                                            <?php foreach ($proveedores as $proveedor): ?>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            
+                                                <td class="text-center"><?php echo htmlspecialchars($proveedor['nombreProveedor']);?></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($proveedor['telefono']);?></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($proveedor['email'])?></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($proveedor['direccion']);?></td>
                                             </tr>
+                                            <?php endforeach;?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -227,23 +233,23 @@
                         <div class="col-xl-6 col-lg-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex align-item-center justify-content-center">
-                                    <h6 class="mb-0  text-primary">Historial de Compra de Proveedores</h6>
+                                    <h6 class="mb-0  text-primary">Historial de Compra de Productos Con Proveedores</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table tabler-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
-                                            <th>NIT Del proveedor</th>
                                             <th>Nombre del proovedor</th>
                                             <th>Categoria de productos</th>
                                             <th>Fecha y Hora</th>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                            <?php foreach ($comprasConProveedores as $compras): ?>
+                                                <tr>
+                                                        <td class="text-center"><?php echo htmlspecialchars($compras['nombreProveedor'])?></td>
+                                                        <td class="text-center"><?php echo htmlspecialchars($compras['nombreCategoria'])?></td>
+                                                        <td class="text-center"><?php echo htmlspecialchars($compras['fechaCreacion'])?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -257,7 +263,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Artus Sistema De Inventarios Y Facturacion</span>
                     </div>
                 </div>
             </footer>
@@ -273,27 +279,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- PASARLO A ARCHIVO EXTERNO -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

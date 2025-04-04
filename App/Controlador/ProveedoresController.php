@@ -28,6 +28,9 @@ class ProveedoresController{
             }
         }
     }
+    public function obtenerComprasDeProductoPorProveedor(){
+        return $this->proveedoresModelo->obtenerComprasDeProductoPorProveedor();
+    }
 
 
 

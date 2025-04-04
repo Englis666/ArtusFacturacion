@@ -14,6 +14,13 @@ class Proveedores{
         return $stmt->execute([$nombreProveedor, $telefono, $email, $direccion]);
     }
 
+    public function obtenerComprasDeProductoPorProveedor(){
+        $resultado = $this->conn->query("SELECT * FROM productos as p
+                                         INNER JOIN categorias as c ON p.categoria_idCategoria = c.idCategoria 
+                                         INNER JOIN proveedores as pro ON p.proveedor_idProveedor = pro.idProveedor;");
+        return $resultado->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 
 ?>

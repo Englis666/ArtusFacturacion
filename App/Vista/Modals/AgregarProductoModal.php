@@ -31,22 +31,25 @@ $proveedores = $proveedoresController->obtenerProveedores();
                 <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Agregar Un Producto</h1>
                 </div>
-                <form class="user" action="procesar_producto.php" method="POST">
+                <form class="user" action="/agregarProducto" method="POST">
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" name="codigo_barras" placeholder="Código de barras">
+                            <input type="text" class="form-control form-control-user" name="codigoBarras" placeholder="Código de barras">
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" name="nombre_producto" placeholder="Nombre del producto">
+                            <input type="text" class="form-control form-control-user" name="nombreProducto" placeholder="Nombre del producto">
                         </div>
                         <div class="col-sm-6 mt-2">
-                            <input type="number" class="form-control form-control-user" name="cantidad_producto" placeholder="Cantidad de producto">
+                            <input type="number" class="form-control form-control-user" name="cantidad" placeholder="Cantidad de producto">
                         </div>
                         <div class="col-sm-6 mt-2">
-                            <input type="number" class="form-control form-control-user" name="precio_producto" placeholder="Precio del producto">
+                            <input type="number" class="form-control form-control-user" name="precioCompra" placeholder="Precio de Compra">
                         </div>
                         <div class="col-sm-6 mt-2">
-                            <select class="form-control" name="categoria_idCategoria">
+                            <input type="number" class="form-control form-control-user" name="precioVenta" placeholder="Precio de Venta">
+                        </div>
+                        <div class="col-sm-6 mt-2">
+                            <select class="form-control" name="idCategoria">
                                 <option value="">Selecciona la categoría del producto</option>
                                 <?php foreach ($categorias as $categoria): ?>
                                     <option value="<?= $categoria['idCategoria'] ?>"><?= htmlspecialchars($categoria['nombreCategoria']) ?></option>
@@ -54,7 +57,7 @@ $proveedores = $proveedoresController->obtenerProveedores();
                             </select>
                         </div>
                         <div class="col-sm-6 mt-2">
-                            <select name="proveedor_idProveedor" class="form-control">
+                            <select name="idProveedor" class="form-control">
                                 <option value="">Selecciona el proveedor del producto</option>
                                 <?php foreach ($proveedores as $proveedor): ?>
                                     <option value="<?= $proveedor['idProveedor']?>"><?= htmlspecialchars($proveedor['nombreProveedor']) ?></option>

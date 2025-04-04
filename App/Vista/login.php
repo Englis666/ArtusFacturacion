@@ -15,7 +15,7 @@
         <div class="card" style="border-radius: 1rem;">
               <div class="card-body p-4 p-lg-5 text-black">
 
-                <form>
+                <form class="user" action="/logearse" method="POST">
 
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
@@ -35,11 +35,14 @@
                   </div>
 
                   <div class="pt-1 mb-4">
-                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block" type="button">Login</button>
+                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                   </div>
+                </form>
+                <div class="pt-1">
+                  <a href="registro" type="button" class="btn btn-dark btn-lg btn-block">Registrar cajero</a><br>
                   <a href="#!" class="small text-muted">Terminos de uso</a>
                   <a href="#!" class="small text-muted">Politica de privacidad</a>
-                </form>
+                </div>
 
               </div>
         </div>
