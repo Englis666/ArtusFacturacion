@@ -10,10 +10,9 @@ require_once '../App/Controlador/CategoriaController.php';
 require_once '../App/Controlador/VentaController.php';
 require_once '../App/Controlador/ReporteController.php';
 
-// Obtener la ruta
-$route = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+$base = "/ArtusFacturacion/";
+$route = trim(str_replace($base, '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)), '/');
 
-// Si no hay ruta (accede a "/"), redirigir a "/login"
 if ($route === '') {
     header("Location: /login");
     exit;
@@ -26,7 +25,7 @@ $controllers = [
     'proveedor' => new ProveedoresController(),
     'categoria' => new CategoriaController(),
     'venta' => new VentaController(),
-    'reporte' => new ReporteController($conn),
+    'reporte' => new ReporteController(),
 ];
 
 // Rutas de frontend
@@ -45,11 +44,14 @@ $frontend = [
 $backend = [
     'registrar' => ['auth', 'registrar'],
     'logearse' => ['auth', 'logearse'],
+    'logout' => ['auth', 'logout'],
     'agregarProducto' => ['producto', 'agregarProducto'],
     'agregarCategoria' => ['categoria', 'agregarCategoria'],
     'agregarProveedor' => ['proveedor', 'agregarProveedor'],
-    'reporte' => ['reporte', 'generarReporteInventario'],
+    'generarReporteInventario' => ['reporte', 'generarReporteInventario'],
     'agregarVenta' => ['venta' , 'agregarVenta'],
+    
+    
 ];
 
 // Verificar si la ruta está en frontend

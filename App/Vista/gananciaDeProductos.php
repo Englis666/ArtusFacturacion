@@ -1,3 +1,14 @@
+<?php
+
+$productoController = new ProductoController();
+$mes = $productoController->calcularGananciaMensual();
+$anio = $productoController->calcularGananciaAnual();
+
+$gananciaPorProducto = $productoController->calcularGananciaPorProducto();
+$gananciaPorCategoria = $productoController->calcularGananciaPorCategoria();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +58,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="dashboard.php">
+                <a class="nav-link" href="dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Inicio</span></a>
             </li>
@@ -86,14 +97,18 @@
                 </a>
                 <div id="Tienda" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                     <div class=" py-2 collapse-inner rounded">
-                        <a class="collapse-item text-white" href="inversionDeProductos.php">Inversiones de productos</a>
-                        <a class="collapse-item text-white" href="gananciaDeProductos.php">Ganancias de productos</a>
-                        <a class="collapse-item text-white" href="#">Cierre de mes</a>
+                        <a class="collapse-item text-white" href="inversionDeProductos">Inversiones de productos</a>
+                        <a class="collapse-item text-white" href="gananciaDeProductos">Ganancias de productos</a>
                     </div>
                 </div>
             </li>
 
-
+            <li class="nav-item active">
+                <a class="nav-link" href="/logout">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Cerrar Sesion</span></a>
+            </li>
+            
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -197,7 +212,7 @@
                                             <div class="text-xs  text-primary text-uppercase mb-1">
                                                 Ganancia Mensuales En Productos
                                             </div>
-                                            <div class="h5 mb-0  text-gray-800">$40,000</div>
+                                            <div class="h5 mb-0 text-gray-800">$<?= number_format($mes, 2) ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -215,7 +230,9 @@
                                         <div class="col mr-2">
                                             <div class="text-xs  text-success text-uppercase mb-1">
                                                 Ganancia Anuales En Productos</div>
-                                            <div class="h5 mb-0  text-gray-800">$215,000</div>
+                                            <?php if($anio !== null): ?>
+                                            <div class="h5 mb-0  text-gray-800">$<?=number_format($anio, 2)?></div>
+                                            <?php endif; ?>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -238,18 +255,21 @@
                                         <thead>
                                             <th>Codigo de barras</th>
                                             <th>Nombre del producto</th>
-                                            <th>Precio de venta por producto</th>
+                                            <th>Ganancia unitaria</th>
+                                            <th>Ganancia total por cantidad</th>
                                             <th>Fecha y hora</th>
                                         </thead>
                                         <tbody>
+                                            <?php foreach ($gananciaPorProducto as $gananciaProducto) : ?>
                                             <tr>
+                                                <td class="text-center"><?=$gananciaProducto['codigoBarras']?></td>
+                                                <td class="text-center"><?=$gananciaProducto['nombre']?></td>
+                                                <td class="text-center"><?=$gananciaProducto['gananciaPorUnidad']?></td>
+                                                <td class="text-center"><?=$gananciaProducto['gananciaTotal']?></td>
+                                                <td class="text-center"><?=$gananciaProducto['fecha']?></td>
                                                 <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            
                                             </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -267,10 +287,12 @@
                                             <th>Precio acumulado por ventas</th>
                                         </thead>
                                         <tbody>
+                                            <?php foreach ($gananciaPorCategoria as $gananciaCategoria) :?>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="text-center"><?=$gananciaCategoria['nombreCategoria']?></td>
+                                                <td class="text-center"><?=$gananciaCategoria['gananciaTotal']?></td>
                                             </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -284,7 +306,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Artus Sistema De Inventario Y Facturacion</span>
                     </div>
                 </div>
             </footer>
@@ -301,25 +323,6 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- PASARLO A ARCHIVO EXTERNO -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

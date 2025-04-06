@@ -1,3 +1,12 @@
+<?php
+require_once '../App/Controlador/ProductoController.php';
+$productoController = new ProductoController();
+$calculoMensual = $productoController->calcularGastosPorProveedor();
+$gastosPorCategoria = $productoController->calcularGastosPorCategoria();
+$mes = $productoController->calcularGastoTotalEnMes();
+$anual = $productoController->calcularGastoTotalAnual();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,7 +78,7 @@
                     <div class=" py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Productos y Proveedores:</h6>
                         <a class="collapse-item text-white" href="Proveedores">Proveedores</a>
-                        <a class="collapse-item text-white" href="ProductosStock.">Productos Stock</a>
+                        <a class="collapse-item text-white" href="ProductosStock">Productos Stock</a>
                     </div>
                 </div>
             </li>
@@ -86,9 +95,14 @@
                     <div class=" py-2 collapse-inner rounded">
                         <a class="collapse-item text-white" href="inversionDeProductos">Inversiones de productos</a>
                         <a class="collapse-item text-white" href="gananciaDeProductos">Ganancias de productos</a>
-                        <a class="collapse-item text-white" href="#">Cierre de mes</a>
                     </div>
                 </div>
+            </li>
+
+             <li class="nav-item active" >
+                <a class="nav-link" href="/logout">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Cerrar Sesion</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -193,7 +207,9 @@
                                             <div class="text-xs  text-primary text-uppercase mb-1">
                                                 Gastos Mensuales En Productos
                                             </div>
-                                            <div class="h5 mb-0  text-gray-800">$40,000</div>
+                                            <?php if($mes): ?>
+                                            <div class="h5 mb-0  text-gray-800">$<?=number_format($mes['gastoTotal'], 0,',','.')?></div>
+                                            <?php endif; ?>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -211,7 +227,10 @@
                                         <div class="col mr-2">
                                             <div class="text-xs  text-success text-uppercase mb-1">
                                                 Gastos Anuales En Productos</div>
-                                            <div class="h5 mb-0  text-gray-800">$215,000</div>
+                                            <?php if ($anual): ?>
+                                                <div class="h5 mb-0 text-gray-800">$<?= number_format($anual['gastoTotal'], 0, ',', '.') ?></div>
+                                            <?php endif; ?>
+
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -234,19 +253,22 @@
                                         <thead>
                                             <th>Codigo de barras</th>
                                             <th>Nombre del producto</th>
-                                            <th>Precio de compra al proovedor</th>
+                                            <th>Precio de compra al proovedor total</th>
+                                            <th>Cantidad</th>
                                             <th>Nombre del proovedor</th>
                                             <th>Fecha y hora</th>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            
-                                            </tr>
+                                            <?php foreach ($calculoMensual as $calculo): ?>
+                                                <tr>
+                                                    <td class="text-center"><?= htmlspecialchars($calculo['codigoBarras']) ?></td>
+                                                    <td class="text-center"><?= htmlspecialchars($calculo['nombre']) ?></td>
+                                                    <td class="text-center">$<?= number_format($calculo['inversionTotal'], 0, ',', '.') ?></td>
+                                                    <td class="text-center"><?= number_format($calculo['cantidad'], 0 , ',', '.')?></td>
+                                                    <td class="text-center"><?= htmlspecialchars($calculo['nombreProveedor']) ?></td>
+                                                    <td class="text-center"><?= htmlspecialchars($calculo['fechaCreacion']) ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -265,14 +287,16 @@
                                             <th>Precio de compra al Proveedor</th>
                                             <th>Fecha y hora</th>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
+                                            <tbody>
+                                                <?php foreach ($gastosPorCategoria as $gasto): ?>
+                                                    <tr>
+                                                        <td class="text-center"><?= htmlspecialchars($gasto['nombreCategoria']) ?></td>
+                                                        <td class="text-center"><?= htmlspecialchars($gasto['nombreProveedor']) ?></td>
+                                                        <td class="text-center">$<?= number_format($gasto['gastoTotal'], 0, ',', '.') ?></td>
+                                                        <td class="text-center"><?= htmlspecialchars($gasto['ultimaFecha']) ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -285,7 +309,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Artus Sistema De Inventario Y Facturacion</span>
                     </div>
                 </div>
             </footer>
@@ -297,30 +321,6 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- PASARLO A ARCHIVO EXTERNO -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Custom scripts for all pages-->
     <script src="public/js/sb-admin-2.min.js"></script>

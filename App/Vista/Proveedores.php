@@ -94,9 +94,14 @@ $comprasConProveedores = $proveedoresController->obtenerComprasDeProductoPorProv
                     <div class=" py-2 collapse-inner rounded">
                         <a class="collapse-item text-white" href="inversionDeProductos">Inversiones de productos</a>
                         <a class="collapse-item text-white" href="gananciaDeProductos">Ganancias de productos</a>
-                        <a class="collapse-item text-white" href="#">Cierre de mes</a>
                     </div>
                 </div>
+            </li>
+
+             <li class="nav-item active" >
+                <a class="nav-link" href="/logout">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Cerrar Sesion</span></a>
             </li>
 
 
@@ -189,7 +194,8 @@ $comprasConProveedores = $proveedoresController->obtenerComprasDeProductoPorProv
                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Gestión de productos</h1>
                         <div class="d-flex gap-2">
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <a href="?controlador=reporte&accion=generarPDF" 
+                                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" target="_blank">
                                 <i class="fas fa-download fa-sm text-white-50"></i> Generar Reporte
                             </a>
                             <button class="btn btn-primary btn-sm shadow-sm" data-bs-toggle="modal" data-bs-target="#modalIframe">

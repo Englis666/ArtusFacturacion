@@ -1,6 +1,5 @@
 Options -Indexes
 RewriteEngine On
-
 DirectoryIndex index.php
 
 # Eliminar .php de las URLs
@@ -8,12 +7,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.*)$ $1.php [NC,L]
 
-# Redirigir todas las peticiones a index.php
+# Redirigir todo a index.php si no existe archivo o carpeta
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [QSA,L]
-<FilesMatch "\.php$">
-    # Permitir solo index.php
-    RewriteCond %{REQUEST_URI} !/index\.php$
-    RewriteRule ^ - [F,L]
-</FilesMatch>

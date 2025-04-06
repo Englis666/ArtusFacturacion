@@ -1,3 +1,28 @@
+<?php
+$productoController = new ProductoController();
+$mes = $productoController->calcularGananciaMensual();
+$anio = $productoController->calcularGananciaAnual();
+$resumenHoy = $productoController->obtenerGananciasDeHoyPorHora();
+$horas = [];
+$ganancias = [];
+foreach ($resumenHoy as $fila) {
+    $horas[] = str_pad($fila['hora'], 2, '0', STR_PAD_LEFT) . ':00'; 
+    $ganancias[] = floatval($fila['ganancia']);
+}
+$ventaController = new VentaController();
+$historial = $ventaController->historialVenta();
+
+$obtenerProductosPorcentaje = $productoController->obtenerStockProductos();
+
+function obtenerColor($porcentaje) {
+    if ($porcentaje < 30) return 'bg-danger';
+    elseif ($porcentaje < 60) return 'bg-warning';
+    elseif ($porcentaje < 90) return 'bg-info';
+    else return 'bg-success';
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +58,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard">
                 <div class="sidebar-brand-icon">
                      <i class="fas fa-globe"></i>
                 </div>
@@ -45,7 +70,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="dashboard.php">
+                <a class="nav-link" href="dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Inicio</span></a>
             </li>
@@ -86,11 +111,15 @@
                     <div class=" py-2 collapse-inner rounded">
                         <a class="collapse-item text-white" href="inversionDeProductos">Inversiones de productos</a>
                         <a class="collapse-item text-white" href="gananciaDeProductos">Ganancias de productos</a>
-                        <a class="collapse-item text-white" href="#">Cierre de mes</a>
                     </div>
                 </div>
             </li>
-                        
+            
+             <li class="nav-item active" >
+                <a class="nav-link" href="/logout">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Cerrar Sesion</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -115,6 +144,7 @@
                 </div>
             </li>
 
+            
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -180,14 +210,14 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Panel Principal</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generar Reporte</a>
+                                class="fas fa-download fa-sm text-white-50"></i>Agregar Ticketadora</a>
                     </div>
 
                     <!-- Content Row -->
                     <div class="row">
 
                         <!-- Ganancias Mensuales carta-->
-                        <div class="col-xl-4 col-md-4 mb-4">
+                        <div class="col-xl-6 col-md-4 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row  align-items-center">
@@ -195,7 +225,9 @@
                                             <div class="text-xs text-primary text-uppercase mb-1">
                                                 Ganancias Mensuales
                                             </div>
-                                            <div class="h5 mb-0 text-gray-800">$40,000</div>
+                                          <?php if($mes): ?>
+                                                <div class="h5 mb-0 text-gray-800">$<?= number_format($mes, 2) ?></div>
+                                            <?php endif; ?>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -206,14 +238,16 @@
                         </div>
 
                         <!-- Ganancias Anuales carta -->
-                        <div class="col-xl-4 col-md-4 mb-4">
+                        <div class="col-xl-6 col-md-4 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row  align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs  text-success text-uppercase mb-1">
                                                 Ganancias Anuales</div>
-                                            <div class="h5 mb-0 text-gray-800">$215,000</div>
+                                            <?php if($anio): ?>
+                                            <div class="h5 mb-0 text-gray-800">$<?=number_format($anio, 2)?></div>
+                                            <?php endif;?>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -224,66 +258,29 @@
                         </div>
 
                         <!-- Porcentaje de productos validos en la tienda-->
-                        <div class="col-xl-4 col-md-4 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs text-info text-uppercase mb-1">Productos Stock generales
-                                            </div>
-                                            <div class="row align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5  mr-3  text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
+                            <!-- Content Row -->
+                           <div class="row">
                         <!-- Area Chart -->
                         <div class="col-xl-6 col-lg-6">
                             <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex align-items-center justify-content-center">
-                                    <h6 class="m-0  text-primary ">Resumen de ganancias de hoy</h6>
+                                <!-- Card Header - Dropdown + título -->
+                                <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                                    <h6 class="m-0 text-primary">Resumen de ganancias de hoy</h6>
+                        
+
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
                                     </div>
                                 </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>
+                                <canvas id="graficaGananciasHoy" height="100"></canvas>
                             </div>
                         </div>
+
                         <div class="col-xl-6 col-lg-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex align-item-center justify-content-center">
@@ -298,12 +295,14 @@
                                             <th>Fecha y dia</th>
                                         </thead>
                                         <tbody>
+                                            <?php foreach ($historial as $historial):?>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($historial['numeroDocumento'])?></td>
+                                                <td><?php echo htmlspecialchars($historial['nombre'])?></td>
+                                                <td><?php echo htmlspecialchars($historial['total'])?></td>
+                                                <td><?php echo htmlspecialchars($historial['fecha'])?></td>
                                             </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -313,66 +312,46 @@
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row">
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-                            <!-- Project Card Example -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0  text-primary">Inventario de productos en stock actuales</h6>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="small ">Server Migration <span
-                                            class="float-right">20%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="row">
+                            <div class="col-lg-6 mb-4">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 text-primary">Inventario de productos en stock actuales</h6>
                                     </div>
-                                    <h4 class="small ">Sales Tracking <span
-                                            class="float-right">40%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small ">Customer Database <span
-                                            class="float-right">60%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small ">Payout Details <span
-                                            class="float-right">80%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small ">Account Setup <span
-                                            class="float-right">Complete!</span></h4>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="card-body">
+                                        <?php foreach ($obtenerProductosPorcentaje as $item): 
+                                            $color = obtenerColor($item['porcentaje']);
+                                        ?>
+                                            <h4 class="small"><?= htmlspecialchars($item['categoria']) ?>
+                                                <span class="float-right"><?= $item['porcentaje'] ?>%</span>
+                                            </h4>
+                                            <div class="progress mb-4">
+                                                <div class="progress-bar <?= $color ?>" role="progressbar"
+                                                    style="width: <?= $item['porcentaje'] ?>%" 
+                                                    aria-valuenow="<?= $item['porcentaje'] ?>" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-lg-6 mb-4">
 
                             <!-- Approach -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0  text-primary">Enfoque</h6>
+                                    <h6 class="m-0 text-primary">Enfoque</h6>
                                 </div>
                                 <div class="card-body">
-                                    <p>El software esta dise;ado ofrece herramientas asertivas para mejorar la gestion de inventarios, sistema de facturacion</p>
-                                    <p class="mb-0">(Otra descripcion que diga las caracteristicas positivas)</p>
+                                    <p>El software está diseñado para ofrecer herramientas eficientes y asertivas que optimizan la gestión de inventarios y el sistema de facturación, facilitando el control y seguimiento de las operaciones diarias de una tienda o negocio.</p>
+                                    <p class="mb-0">Cuenta con una interfaz intuitiva, generación de reportes detallados, control de usuarios, impresión de facturas con ticketera, y análisis de ganancias por producto y categoría. Todo esto enfocado en mejorar la toma de decisiones y aumentar la productividad.</p>
                                 </div>
                             </div>
-
                         </div>
-                    </div>
-
-                </div>
+                    
+                
+                
                 <!-- /.container-fluid -->
 
             </div>
@@ -400,8 +379,44 @@
     </a>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('graficaGananciasHoy').getContext('2d');
+
+    const grafica = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: <?= json_encode($horas) ?>,
+            datasets: [{
+                label: 'Ganancia ($)',
+                data: <?= json_encode($ganancias) ?>,
+                borderColor: 'rgba(78, 115, 223, 1)',
+                backgroundColor: 'rgba(78, 115, 223, 0.05)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Hora'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Ganancia ($)'
+                    }
+                }
+            }
+        }
+    });
+</script>
+
     <!-- Custom scripts for all pages-->
     <script src="public/js/sb-admin-2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

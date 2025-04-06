@@ -10,6 +10,20 @@ $productoController = new ProductoController();
 $productos = $productoController->obtenerProductos();
 $stock = $productoController->calcularProductosActualesDelNegocio();
 
+$ventaController = new VentaController();
+$historial = $ventaController->historialVenta();
+
+
+$obtenerProductosPorcentaje = $productoController->obtenerStockProductos();
+
+function obtenerColor($porcentaje) {
+    if ($porcentaje < 30) return 'bg-danger';
+    elseif ($porcentaje < 60) return 'bg-warning';
+    elseif ($porcentaje < 90) return 'bg-info';
+    else return 'bg-success';
+}
+
+
 ?>
 
 
@@ -101,11 +115,15 @@ $stock = $productoController->calcularProductosActualesDelNegocio();
                     <div class=" py-2 collapse-inner rounded">
                         <a class="collapse-item text-white" href="inversionDeProductos">Inversiones de productos</a>
                         <a class="collapse-item text-white" href="gananciaDeProductos">Ganancias de productos</a>
-                        <a class="collapse-item text-white" href="#">Cierre de mes</a>
                     </div>
                 </div>
             </li>
-                        
+                            
+            <li class="nav-item active" >
+                    <a class="nav-link" href="/logout">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Cerrar Sesion</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -239,6 +257,7 @@ $stock = $productoController->calcularProductosActualesDelNegocio();
                                             <th>Codigo de barras</th>
                                             <th>Nombre del producto</th>
                                             <th>Cantidad</th>
+                                            <th>Fecha que fue agregado</th>
                                         </thead>
                                         <tbody>
                                             <?php foreach ($productos as $producto): ?>
@@ -246,6 +265,7 @@ $stock = $productoController->calcularProductosActualesDelNegocio();
                                                         <td class="text-center"><?php echo htmlspecialchars($producto['codigoBarras']); ?></td>
                                                         <td class="text-center"><?php echo htmlspecialchars($producto['nombre']);?></td>
                                                         <td class="text-center"><?php echo htmlspecialchars($producto['cantidad']);?></td>
+                                                        <td class="text-center"><?php echo htmlspecialchars($producto['fechaCreacion'])?></td>
                                                     </tr>
                                             <?php endforeach;?>
                                         </tbody>
@@ -299,7 +319,14 @@ $stock = $productoController->calcularProductosActualesDelNegocio();
                                             <th>Cantidad</th>
                                         </thead>
                                         <tbody>
-                                           
+                                           <?php foreach ($historial as $historial):?>
+                                            <tr>
+                                                <td class="text-center"><?php echo htmlspecialchars($historial['numeroDocumento'])?></td>
+                                                <td><?php echo htmlspecialchars($historial['nombre'])?></td>
+                                                <td><?php echo htmlspecialchars($historial['total'])?></td>
+                                                <td><?php echo htmlspecialchars($historial['fecha'])?></td>
+                                            </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -334,49 +361,30 @@ $stock = $productoController->calcularProductosActualesDelNegocio();
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row">
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-                            <!-- Project Card Example -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0  text-primary">Inventario de productos en stock actuales</h6>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="small ">Server Migration <span
-                                            class="float-right">20%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                   <div class="row">
+                            <div class="col-lg-6 mb-4">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 text-primary">Inventario de productos en stock actuales</h6>
                                     </div>
-                                    <h4 class="small ">Sales Tracking <span
-                                            class="float-right">40%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small ">Customer Database <span
-                                            class="float-right">60%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small ">Payout Details <span
-                                            class="float-right">80%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small ">Account Setup <span
-                                            class="float-right">Complete!</span></h4>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="card-body">
+                                        <?php foreach ($obtenerProductosPorcentaje as $item): 
+                                            $color = obtenerColor($item['porcentaje']);
+                                        ?>
+                                            <h4 class="small"><?= htmlspecialchars($item['categoria']) ?>
+                                                <span class="float-right"><?= $item['porcentaje'] ?>%</span>
+                                            </h4>
+                                            <div class="progress mb-4">
+                                                <div class="progress-bar <?= $color ?>" role="progressbar"
+                                                    style="width: <?= $item['porcentaje'] ?>%" 
+                                                    aria-valuenow="<?= $item['porcentaje'] ?>" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                </div>
                 <!-- /.container-fluid -->
 
             </div>

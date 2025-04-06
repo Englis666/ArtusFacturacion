@@ -19,7 +19,7 @@ class Sesion {
     public static function verificarSesion() {
         self::iniciar();
         if (!isset($_SESSION['usuario'])) {
-            header('Location: login.php');
+            header('Location: login');
             exit();
         }
     }
@@ -28,7 +28,7 @@ class Sesion {
         self::iniciar();
         session_unset();
         session_destroy();
-        header('Location: login.php');
+        header('Location: login');
         exit();
     }
 }

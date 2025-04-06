@@ -13,23 +13,31 @@ class VentaController {
     public function agregarVenta() {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $numeroDocumento = $_POST['numeroDocumento'] ?? null;
-            $idUsuario = $_POST['idUsuario'] ?? null;
-            $productos = $_POST['productos'] ?? [];
+            $productosJson = $_POST['productos'] ?? [];
 
-            if (empty($numeroDocumento) || empty($idUsuario) || empty($productos)) {
-                header('Location: formularioVenta.php?error=campos_vacios');
-                exit;
-            }
+            $productos = array_map(function($json) {
+                return json_decode($json, true);
+            }, $productosJson);
 
-            if ($this->ventaModelo->agregarVenta($numeroDocumento, $idUsuario, $productos)) {
+            $resultado = json_decode($this->ventaModelo->agregarVenta($numeroDocumento, $productos), true);
+
+            if ($resultado['success']) {
                 header('Location: formularioVenta.php?success=1');
             } else {
-                header('Location: formularioVenta.php?error=1');
+                echo "<pre>Error al registrar venta: " . $resultado['error'] . "</pre>";
             }
             exit;
         }
-
         http_response_code(405);
         echo "Método no permitido";
     }
+    public function historialVenta(){
+        return $this->ventaModelo->historialVenta();
+    }
+
+    public function resumenGanancia(){
+        return $this->ventaModelo->resumenGanancia();
+    }
+
 }
+?>

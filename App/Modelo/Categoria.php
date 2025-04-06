@@ -26,6 +26,21 @@ class Categoria {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+        public function calcularGastosPorCategoria() {
+            $stmt = $this->conn->prepare("
+                SELECT 
+                    ca.nombreCategoria,
+                    pro.nombreProveedor,
+                    SUM(p.precioCompra * p.cantidad) AS totalPorCategoriaAgrupadoPorProveedor
+                FROM productos AS p
+                INNER JOIN proveedores AS pro ON p.proveedor_idProveedor = pro.idProveedor
+                INNER JOIN categorias AS ca ON p.categoria_idCategoria = ca.idCategoria
+                GROUP BY ca.idCategoria, pro.idProveedor
+            ");
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
     public function filtrarProductosPorCategoria($idCategoria) {
         $stmt = $this->conn->prepare("SELECT * FROM productos 
                                   WHERE categoria_idCategoria = ?");
