@@ -17,6 +17,21 @@ class CategoriaController{
     public function obtenerProductosPorCategoria(){
         return $this->categoriaModelo->obtenerProductosPorCategoria();
     }
+    public function filtrarProductosPorCategoria() {
+    header('Content-Type: application/json');
+
+    $idCategoria = $_GET['idCategoria'] ?? null;
+
+    if ($idCategoria === null) {
+        echo json_encode(['error' => 'idCategoria no proporcionado']);
+        http_response_code(400);
+        return;
+    }
+
+    $productos = $this->categoriaModelo->filtrarProductosPorCategoria($idCategoria);
+    echo json_encode($productos);
+}
+
 
     public function agregarCategoria(){
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
