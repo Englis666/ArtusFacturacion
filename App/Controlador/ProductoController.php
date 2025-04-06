@@ -33,6 +33,42 @@ class ProductoController{
         }
     }
 
+    public function calcularGastosPorProveedor(){
+        return $this->productoModelo->calcularGastosPorProveedor();
+    }
+    public function calcularGastosPorCategoria(){
+        return $this->productoModelo->calcularGastosPorCategoria();
+    }
+
+    public function calcularGastoTotalEnMes(){
+        return $this->productoModelo->calcularGastoTotalEnMes();
+    }
+    public function calcularGastoTotalAnual(){
+        return $this->productoModelo->calcularGastoTotalAnual();
+    }
+
+    public function calcularGananciaMensual(){
+        return $this->productoModelo->calcularGananciaMensual();
+    }
+    public function calcularGananciaAnual(){
+        return $this->productoModelo->calcularGananciaAnual();
+    }
+    public function calcularGananciaPorProducto(){
+        return $this->productoModelo->calcularGananciaPorProducto();
+    }
+    public function calcularGananciaPorCategoria(){
+        return $this->productoModelo->calcularGananciaPorCategoria();
+    }
+
+    public function obtenerGananciasDeHoyPorHora(){
+        return $this->productoModelo->obtenerGananciasDeHoyPorHora();
+    }
+    
+    public function obtenerStockProductos(){
+        return $this->productoModelo->obtenerStockProductos();
+    }
+
+
     public function desactivarProducto(){
         if (isset($_GET['codigoBarras'])){
             $codigoBarras = $_GET['codigoBarras'];
