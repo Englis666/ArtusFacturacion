@@ -61,4 +61,6 @@ class ReporteController {
         // Salida del PDF
         $pdf->Output('D', 'reporte_inventario.pdf');
     }
+
+    
 }
