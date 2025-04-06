@@ -63,7 +63,7 @@ class AuthController {
             exit;
         } else {
             $_SESSION['error'] = 'Error al registrar usuario.';
-            header('Location: registro.php');
+            header('Location: registro');
             exit;
         }
     }

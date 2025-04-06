@@ -6,7 +6,8 @@ class Producto{
         $this->conn = $conn;
     }
     public function obtenerTodosLosProductos(){ 
-        $resultado = $this->conn->query("SELECT * FROM productos");
+        $resultado = $this->conn->query("SELECT * FROM productos as p
+                                        INNER JOIN categorias as c ON p.categoria_idCategoria = c.idCategoria");
         return $resultado->fetchAll(PDO::FETCH_ASSOC); 
     }
   public function obtenerStockProductos(){

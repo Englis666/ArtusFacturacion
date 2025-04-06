@@ -213,7 +213,7 @@ function obtenerColor($porcentaje) {
                      <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Gestión de productos</h1>
                         <div class="d-flex gap-2"> 
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                            <a href="/generarReporteProductos" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generar Reporte
                             </a>
                             <button class="btn btn-primary btn-sm shadow-sm" data-bs-toggle="modal" data-bs-target="#modalIframe">
@@ -233,7 +233,7 @@ function obtenerColor($porcentaje) {
                                         <div class="col mr-2">
                                             <div class="text-xs  text-success text-uppercase mb-1">
                                                 Cantidad de productos actuales del negocio</div>
-                                                <div class="h5 mb-0 text-gray-800">Los productos actuales del negocio son : <?php echo htmlspecialchars($stock); ?></div>
+                                                <div class="h5 mb-0 text-gray-800">Los productos actuales del negocio son :  <?php echo $stock === null ? "0" : number_format($stock); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>

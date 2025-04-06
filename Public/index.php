@@ -48,7 +48,10 @@ $backend = [
     'agregarProducto' => ['producto', 'agregarProducto'],
     'agregarCategoria' => ['categoria', 'agregarCategoria'],
     'agregarProveedor' => ['proveedor', 'agregarProveedor'],
-    'generarReporteInventario' => ['reporte', 'generarReporteInventario'],
+    'generarReporteProductos' => ['reporte', 'generarReporteProductos'],
+    'generarReporteProveedores'=> ['reporte', 'generarReporteProveedores'],
+    'generarReporteInversiones' => ['reporte', 'generarReporteInversiones'],
+    'generarReporteGanancias' => ['reporte', 'generarReporteGanancias'],  
     'agregarVenta' => ['venta' , 'agregarVenta'],
     
     

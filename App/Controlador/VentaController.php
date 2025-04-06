@@ -22,7 +22,7 @@ class VentaController {
             $resultado = json_decode($this->ventaModelo->agregarVenta($numeroDocumento, $productos), true);
 
             if ($resultado['success']) {
-                header('Location: formularioVenta.php?success=1');
+                header('Location: formularioVenta');
             } else {
                 echo "<pre>Error al registrar venta: " . $resultado['error'] . "</pre>";
             }

@@ -38,9 +38,9 @@ class CategoriaController{
             $nombreCategoria = $_POST['nombreCategoria'];
 
             if ($this->categoriaModelo->agregarCategoria($nombreCategoria)){
-                header('Location: ProductosStock.php?success=1');
+                header('Location: ProductosStock');
             } else {
-                header('Location: ProductosStock.php?error=1');
+                header('Location: ProductosStock');
             }
         }
     }
@@ -49,7 +49,7 @@ class CategoriaController{
         if (isset($_GET['idCategoria'])){
             $idCategoria = $_GET['idCategoria'];
             $this->categoriaModelo->desactivarCategoria($idCategoria);
-            header('Location: ProductosStock.php');
+            header('Location: ProductosStock');
         }
     }
 

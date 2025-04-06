@@ -128,6 +128,7 @@ $validar = $_SESSION['usuario'] ?? null;
     <button type="submit" class="btn btn-primary w-100" disabled>Registrar Compra</button>
     <button type="reset" class="btn btn-danger w-100 mt-2" onclick="reiniciarVenta()">Cancelar Compra</button>
 </form>
+    <a href="/logout" class="btn btn-danger w-100 mt-2">Cerrar sesion</a>
 
 <script>
     let totalCompra = 0;

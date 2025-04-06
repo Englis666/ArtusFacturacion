@@ -22,9 +22,9 @@ class ProveedoresController{
             $direccion = $_POST['direccion'];
 
             if($this->proveedoresModelo->agregarProveedor($nombreProveedor,$telefono , $email, $direccion)){
-                header('Location: Proveedores.php?success=1');
+                header('Location: Proveedores');
             } else {
-                header('Location: Proveedores.php?error=1');
+                header('Location: Proveedores');
             }
         }
     }

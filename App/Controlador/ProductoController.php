@@ -73,7 +73,7 @@ class ProductoController{
         if (isset($_GET['codigoBarras'])){
             $codigoBarras = $_GET['codigoBarras'];
             $this->productoModelo->desactivarProducto($codigoBarras);
-            header('Location: productos.php');
+            header('Location: productos');
         }
     }
 
