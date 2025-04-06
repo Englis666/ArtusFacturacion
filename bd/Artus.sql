@@ -28,7 +28,7 @@ CREATE TABLE `categorias` (
   `nombreCategoria` varchar(100) NOT NULL,
   PRIMARY KEY (`idCategoria`),
   UNIQUE KEY `nombreCategoria` (`nombreCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,9 +37,6 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
-INSERT INTO `categorias` VALUES
-(1,'Aseo'),
-(3,'Electrodomesticos');
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,10 +76,8 @@ DROP TABLE IF EXISTS `clientes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `clientes` (
-  `idCliente` int(11) NOT NULL AUTO_INCREMENT,
   `numeroDocumento` varchar(20) NOT NULL,
-  PRIMARY KEY (`idCliente`),
-  UNIQUE KEY `numeroDocumento` (`numeroDocumento`)
+  PRIMARY KEY (`numeroDocumento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -264,9 +259,6 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES
-('123123','Case',NULL,30000.00,50000.00,3,2,50,'2025-04-03'),
-('123123123','Trapero',NULL,5000.00,8000.00,1,1,2,'2025-04-03');
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,7 +276,7 @@ CREATE TABLE `proveedores` (
   `email` varchar(100) DEFAULT NULL,
   `direccion` text DEFAULT NULL,
   PRIMARY KEY (`idProveedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,9 +285,6 @@ CREATE TABLE `proveedores` (
 
 LOCK TABLES `proveedores` WRITE;
 /*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
-INSERT INTO `proveedores` VALUES
-(1,'Juanito','31413123','juanito@gmail.com','calle 86'),
-(2,'Johan','3135135','johan@gmail.com','calle 90');
 /*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,35 +340,6 @@ INSERT INTO `rol` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `stockProductos`
---
-
-DROP TABLE IF EXISTS `stockProductos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `stockProductos` (
-  `idStock` int(11) NOT NULL AUTO_INCREMENT,
-  `codigoBarras` varchar(20) NOT NULL,
-  `cantidadDisponible` int(11) NOT NULL DEFAULT 0,
-  `cantidadMinima` int(11) NOT NULL DEFAULT 1,
-  `ubicacionAlmacen` varchar(255) DEFAULT NULL,
-  `fechaActualizacion` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`idStock`),
-  KEY `fk_codigoBarras_stock` (`codigoBarras`),
-  CONSTRAINT `fk_codigoBarras_stock` FOREIGN KEY (`codigoBarras`) REFERENCES `productos` (`codigoBarras`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `stockProductos`
---
-
-LOCK TABLES `stockProductos` WRITE;
-/*!40000 ALTER TABLE `stockProductos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `stockProductos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `usuarios`
 --
 
@@ -406,8 +366,8 @@ CREATE TABLE `usuarios` (
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` VALUES
-(111,'admin','admin@gmail.com','$2y$12$0w7MIjpniYZE1daLJcdRAuTeam9eJ.wwIiacrJbLma3obGcquzKvu',1),
-(123,'Alexander Osuna','alex@gmail.com','$2y$12$vj//zBNHJg.RxVccq5aa1eIy72YT0KsX6XaOVYkSHwC6XCNFr96QG',2);
+(123,'Administrador','administrador@gmail.com','$2y$12$d9Qxap5krjBtIrf7v/ksZuVq57b5PL/aPxS6/NX2ZzOkZTK27fibK',1),
+(1231,'asdasd','asdasd@gmail.com','$2y$12$49lf3PrcxOvcmpvpWM1ZBetlX7TQZIpzopug9MByimNymxkDSXQ4y',2);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -420,13 +380,13 @@ DROP TABLE IF EXISTS `ventas`;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ventas` (
   `idVenta` int(11) NOT NULL AUTO_INCREMENT,
-  `cliente_idCliente` int(11) DEFAULT NULL,
-  `usuario_idUsuario` int(11) NOT NULL,
+  `numeroDocumento` varchar(20) DEFAULT NULL,
   `total` decimal(10,2) NOT NULL,
   `fecha` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`idVenta`),
-  KEY `cliente_idCliente` (`cliente_idCliente`),
-  CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`cliente_idCliente`) REFERENCES `clientes` (`idCliente`) ON DELETE CASCADE
+  KEY `fk_ventas_clientes` (`numeroDocumento`),
+  CONSTRAINT `fk_ventas_clientes` FOREIGN KEY (`numeroDocumento`) REFERENCES `clientes` (`numeroDocumento`),
+  CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`numeroDocumento`) REFERENCES `clientes` (`numeroDocumento`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -448,4 +408,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2025-04-03 19:08:47
+-- Dump completed on 2025-04-06 10:35:59
