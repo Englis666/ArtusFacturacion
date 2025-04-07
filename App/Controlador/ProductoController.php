@@ -26,9 +26,9 @@ class ProductoController{
 
 
             if ($this->productoModelo->agregarProducto($codigoBarras, $nombreProducto, $precioCompra, $precioVenta, $idCategoria,$idProveedor,$cantidad)){
-                header('Location: productos.php?success=1');
+                header('Location: ProductosStock');
             } else {
-                header('Location: productos.php?error=1');
+                header('Location: ProductosStock');
             }
         }
     }

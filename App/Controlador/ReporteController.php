@@ -141,7 +141,7 @@ public function generarReporteProveedores() {
     </tr></thead><tbody>';
 
     foreach ($productos as $prod) {
-            var_dump($prod); // Esto mostrará todos los campos de $prod
+         // Esto mostrará todos los campos de $prod
         $html .= "<tr>
             <td>{$prod['codigoBarras']}</td>
             <td>{$prod['nombre']}</td>
