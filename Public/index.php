@@ -2,13 +2,14 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once '../App/Controlador/VistaController.php';
-require_once '../App/Controlador/AuthController.php';
-require_once '../App/Controlador/ProductoController.php';
-require_once '../App/Controlador/ProveedoresController.php';
-require_once '../App/Controlador/CategoriaController.php';
-require_once '../App/Controlador/VentaController.php';
-require_once '../App/Controlador/ReporteController.php';
+require_once __DIR__ . '/App/Controlador/VistaController.php';
+require_once __DIR__ . '/App/Controlador/AuthController.php';
+require_once __DIR__ . '/App/Controlador/ProductoController.php';
+require_once __DIR__ . '/App/Controlador/ProveedoresController.php';
+require_once __DIR__ . '/App/Controlador/CategoriaController.php';
+require_once __DIR__ . '/App/Controlador/VentaController.php';
+require_once __DIR__ . '/App/Controlador/ReporteController.php';
+
 
 $base = "/ArtusFacturacion/";
 $route = trim(str_replace($base, '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)), '/');

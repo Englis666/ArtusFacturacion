@@ -1,10 +1,10 @@
 <?php
 
-require_once '../App/vendor/autoload.php';
-require_once '../App/Controlador/ProductoController.php';
-require_once '../App/Controlador/ProveedoresController.php';
-require_once '../App/Controlador/CategoriaController.php';
-require_once '../App/Controlador/VentaController.php';
+require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/../Controlador/ProductoController.php';
+require_once __DIR__.'/../Controlador/ProveedoresController.php';
+require_once __DIR__ .'/../Controlador/CategoriaController.php';
+require_once __DIR__.'/../Controlador/VentaController.php';
 
 use Dompdf\Dompdf;
 use Dompdf\Options;

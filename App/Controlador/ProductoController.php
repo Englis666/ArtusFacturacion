@@ -1,6 +1,6 @@
 <?php
-require_once '../App/Modelo/Producto.php';
-require_once '../App/Config/Database.php';
+require_once __DIR__.'/../Modelo/Producto.php';
+require_once __DIR__.'/../Config/Database.php';
 
 class ProductoController{
     private $productoModelo;

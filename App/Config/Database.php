@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost';
+$host = 'artusfacturacion-db';
 $dbname = 'Artus';
 $username = 'root';
-$password = '';
+$password = 'artus';
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password, [
