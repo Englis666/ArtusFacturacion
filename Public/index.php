@@ -1,6 +1,8 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
 
 require_once __DIR__ . '/App/Controlador/VistaController.php';
 require_once __DIR__ . '/App/Controlador/AuthController.php';
@@ -10,14 +12,6 @@ require_once __DIR__ . '/App/Controlador/CategoriaController.php';
 require_once __DIR__ . '/App/Controlador/VentaController.php';
 require_once __DIR__ . '/App/Controlador/ReporteController.php';
 
-
-$base = "/ArtusFacturacion/";
-$route = trim(str_replace($base, '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)), '/');
-
-if ($route === '') {
-    header("Location: /login");
-    exit;
-}
 
 $controllers = [
     'vista' => new VistaController(),
@@ -29,49 +23,37 @@ $controllers = [
     'reporte' => new ReporteController(),
 ];
 
-// Rutas de frontend
-$frontend = [
-    'login' => ['vista', 'mostrar'],
-    'registro' => ['vista', 'mostrar'],
-    'dashboard' => ['vista', 'mostrar'],
-    'ProductosStock' => ['vista', 'mostrar'],
-    'Proveedores' => ['vista', 'mostrar'],
-    'gananciaDeProductos' => ['vista', 'mostrar'],
-    'inversionDeProductos' => ['vista', 'mostrar'],
-    'formularioVenta' => ['vista' , 'mostrar'],
-];
 
-// Rutas de backend
-$backend = [
-    'registrar' => ['auth', 'registrar'],
-    'logearse' => ['auth', 'logearse'],
-    'logout' => ['auth', 'logout'],
-    'agregarProducto' => ['producto', 'agregarProducto'],
-    'agregarCategoria' => ['categoria', 'agregarCategoria'],
-    'agregarProveedor' => ['proveedor', 'agregarProveedor'],
-    'generarReporteProductos' => ['reporte', 'generarReporteProductos'],
-    'generarReporteProveedores'=> ['reporte', 'generarReporteProveedores'],
-    'generarReporteInversiones' => ['reporte', 'generarReporteInversiones'],
-    'generarReporteGanancias' => ['reporte', 'generarReporteGanancias'],  
-    'agregarVenta' => ['venta' , 'agregarVenta'],
-    
-    
-];
+$frontend = require __DIR__ . '/App/Config/frontend_routes.php';
+$backend = require __DIR__ . '/App/Config/backend_routes.php';
 
-// Verificar si la ruta está en frontend
-if (isset($frontend[$route])) {
-    [$controller, $method] = $frontend[$route];
-    $controllers[$controller]->$method($route);
+$base = "/ArtusFacturacion/";
+$route = trim(str_replace($base, '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)), '/');
+
+if ($route === '') {
+    header("Location: /login");
     exit;
 }
 
-// Verificar si la ruta está en backend
-if (isset($backend[$route])) {
-    [$controller, $method] = $backend[$route];
-    $controllers[$controller]->$method();
-    exit;
+
+function runRoute($routes, $controllers, $route, $isFrontend = true) {
+    if (isset($routes[$route])) {
+        [$controllerKey, $method] = $routes[$route];
+        if (isset($controllers[$controllerKey]) && method_exists($controllers[$controllerKey], $method)) {
+            if ($isFrontend) {
+                $controllers[$controllerKey]->$method($route);
+            } else {
+                $controllers[$controllerKey]->$method();
+            }
+            exit;
+        }
+    }
 }
 
-// Si la ruta no coincide, devolver error 404
+
+runRoute($frontend, $controllers, $route, true);
+runRoute($backend, $controllers, $route, false);
+
+
 http_response_code(404);
-echo "Página no encontrada.";
+echo "<h1>Página no encontrada</h1>";
