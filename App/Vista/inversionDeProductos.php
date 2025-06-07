@@ -1,5 +1,5 @@
 <?php
-require_once '../App/Controlador/ProductoController.php';
+require_once 'App/Controlador/ProductoController.php';
 $productoController = new ProductoController();
 $calculoMensual = $productoController->calcularGastosPorProveedor();
 $gastosPorCategoria = $productoController->calcularGastosPorCategoria();
