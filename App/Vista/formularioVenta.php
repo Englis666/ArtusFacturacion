@@ -1,7 +1,7 @@
 <?php
-require_once '../App/Controlador/CategoriaController.php';
-require_once '../App/Controlador/ProductoController.php';
-require_once '../App/Helper/Sesion.php';
+require_once 'App/Controlador/CategoriaController.php';
+require_once 'App/Controlador/ProductoController.php';
+require_once 'App/Helper/Sesion.php';
 
 $categoriaController = new CategoriaController();
 $categorias = $categoriaController->obtenerTodasLasCategoriasDeProductos();
