@@ -1,6 +1,6 @@
 <?php
-require_once '../App/Controlador/CategoriaController.php';
-require_once '../App/Controlador/ProveedoresController.php';
+require_once 'App/Controlador/CategoriaController.php';
+require_once 'App/Controlador/ProveedoresController.php';
 
 $controller = new CategoriaController();
 $categorias = $controller->obtenerTodasLasCategoriasDeProductos();
